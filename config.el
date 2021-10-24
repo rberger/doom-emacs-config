@@ -22,6 +22,9 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
+(setq doom-font (font-spec :family "Hack Nerd Font Mono" :size 16)
+      doom-variable-pitch-font (font-spec :family "Hack Nerd Font" :size 16))
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -29,11 +32,11 @@
 (use-package circadian
     :config
   (setq circadian-themes '(("8:00" . doom-solarized-light)
-                           ("19:30" . doom-gruvbox)))
+                           ("17:30" . doom-gruvbox)))
   (circadian-setup))
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Documents/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -56,3 +59,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(setq projectile-project-search-path '("~/omnyway/" "~/work/" "~/Documents/work"))
+
+(use-package! dap-mode)
+(use-package! dap-chrome)

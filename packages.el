@@ -50,3 +50,4 @@
 ;(unpin! t)
 
 (package! circadian)
+(package! dap-mode)
