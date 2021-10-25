@@ -1,5 +1,6 @@
 ;;; init.el -*- lexical-binding: t; -*-
-
+;; Temp workaround for https://github.com/hlissner/doom-emacs/issues/5682
+(defvar native-comp-deferred-compilation-deny-list nil)
 ;; This file controls what Doom modules are enabled and what order they load
 ;; in. Remember to run 'doom sync' after modifying it!
 
