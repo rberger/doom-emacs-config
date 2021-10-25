@@ -51,3 +51,4 @@
 
 (package! circadian)
 (package! dap-mode)
+(package! wakatime-mode)

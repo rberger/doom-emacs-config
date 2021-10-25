@@ -69,6 +69,18 @@
 
 (setq cider-default-cljs-repl 'shadow)
 ;; Enable paredit mode for Clojure buffers, CIDER mode and CIDER REPL buffers
-(add-hook 'cider-repl-mode-hook #'paredit-mode)
-(add-hook 'cider-mode-hook #'paredit-mode)
-(add-hook 'clojure-mode-hook #'paredit-mode)
+;; (add-hook 'cider-repl-mode-hook #'paredit-mode)
+;; (add-hook 'cider-mode-hook #'paredit-mode)
+;; (add-hook 'clojure-mode-hook #'paredit-mode)
+(after! projectile
+  (setq projectile-sort-order 'recently-active))
+
+
+(use-package! wakatime-mode
+  :config
+  (setq wakatime-cli-path "/usr/local/bin/wakatime")
+  (setq wakatime-api-key "c1c2b86b-993f-43a9-b7ae-7a742cc425d7")
+  :hook (after-init . global-wakatime-mode))
+
+(after! smartparens
+  (show-smartparens-global-mode t))
