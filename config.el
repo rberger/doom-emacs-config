@@ -29,6 +29,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
+;;
+;;
 (use-package circadian
     :config
   (setq circadian-themes '(("8:00" . doom-solarized-light)
@@ -64,3 +66,9 @@
 
 (use-package! dap-mode)
 (use-package! dap-chrome)
+
+(setq cider-default-cljs-repl 'shadow)
+;; Enable paredit mode for Clojure buffers, CIDER mode and CIDER REPL buffers
+(add-hook 'cider-repl-mode-hook #'paredit-mode)
+(add-hook 'cider-mode-hook #'paredit-mode)
+(add-hook 'clojure-mode-hook #'paredit-mode)
