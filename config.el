@@ -84,3 +84,7 @@
 
 (after! smartparens
   (show-smartparens-global-mode t))
+
+;; Disable the popup with source of a symbol
+(after! lsp-ui
+  (setq lsp-ui-doc-mode nil))
