@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Robert J. Berger"
+      user-mail-address "rberger@ibd.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -85,6 +85,24 @@
 (after! smartparens
   (show-smartparens-global-mode t))
 
-;; Disable the popup with source of a symbol
-(after! lsp-ui
-  (setq lsp-ui-doc-mode nil))
+;;
+;; lsp-mode features
+;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+;;
+
+;; Disable lsp-ui-doc - on hover dialogs
+(setq lsp-ui-doc-enable nil)
+;;  Sideline code action
+(setq lsp-ui-sideline-show-code-actions nil)
+
+(setq +format-with-lsp nil)
+(setq css-indent-offset 4)
+(setq +format-on-save-enabled-modes
+      '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
+            sql-mode         ; sqlformat is currently broken
+            tex-mode         ; latexindent is broken
+            latex-mode
+            scss-mode
+            web-mode))
+
+(use-package! graphql-mode)

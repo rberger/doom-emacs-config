@@ -52,3 +52,4 @@
 (package! circadian)
 (package! dap-mode)
 (package! wakatime-mode)
+(package! graphql-mode)
