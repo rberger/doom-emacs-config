@@ -53,3 +53,5 @@
 (package! dap-mode)
 (package! wakatime-mode)
 (package! graphql-mode)
+(package! edit-server) ;; for edit with emacs chrome extension
+;;

@@ -32,10 +32,13 @@
 ;;
 ;;
 (use-package circadian
-    :config
-  (setq circadian-themes '(("8:00" . doom-solarized-light)
-                           ("17:30" . doom-gruvbox)))
+  :config
+  (setq calendar-latitude 37.2)
+  (setq calendar-longitude -122.0)
+  (setq circadian-themes '((:sunrise . doom-solarized-light)
+                           (:sunset  . doom-gruvbox)))
   (circadian-setup))
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/org/")
@@ -95,7 +98,21 @@
 ;;  Sideline code action
 (setq lsp-ui-sideline-show-code-actions nil)
 
-(setq +format-with-lsp nil)
+;; Remove the lookup handlers conflict from `cider` and/or `clj-refactor` to use
+;; this LSP find definition feature
+(use-package! cider
+  :after clojure-mode
+  :config
+  (set-lookup-handlers! 'cider-mode nil))
+
+(use-package! clj-refactor
+  :after clojure-mode
+  :config
+  (set-lookup-handlers! 'clj-refactor-mode nil))
+
+;; https://github.com/hlissner/doom-emacs/tree/master/modules/editor/format#disabling-the-lsp-formatter
+;; (setq +format-with-lsp nil)
+;;
 (setq css-indent-offset 4)
 (setq +format-on-save-enabled-modes
       '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
@@ -103,6 +120,18 @@
             tex-mode         ; latexindent is broken
             latex-mode
             scss-mode
+            graphql-mode
             web-mode))
 
 (use-package! graphql-mode)
+(add-to-list 'interpreter-mode-alist '("bb" . clojure-mode))
+
+;; https://www.reddit.com/r/DoomEmacs/comments/is0vrv/editing_html_text_fields_in_chrome_with_doom/
+;; https://github.com/stsquad/emacs_chrome
+(use-package! edit-server)
+(after! edit-server
+    (edit-server-start))
+
+;; In chrome mode, save the contents of the text when exiting.
+(add-hook 'edit-server-done-hook
+    '(lambda () (kill-ring-save (point-min) (point-max))))
