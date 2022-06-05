@@ -81,7 +81,7 @@
 
 (use-package! wakatime-mode
   :config
-  (setq wakatime-cli-path "/usr/local/bin/wakatime")
+  (setq wakatime-cli-path "/Users/rberger/.pyenv/shims/wakatime")
   (setq wakatime-api-key "c1c2b86b-993f-43a9-b7ae-7a742cc425d7")
   :hook (after-init . global-wakatime-mode))
 
