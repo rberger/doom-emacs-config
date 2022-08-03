@@ -135,3 +135,32 @@
 ;; In chrome mode, save the contents of the text when exiting.
 (add-hook 'edit-server-done-hook
     '(lambda () (kill-ring-save (point-min) (point-max))))
+
+;; Asciidoc
+(add-hook! adoc-mode
+  (ispell-change-dictionary "fr")
+  (add-to-list 'auto-mode-alist '("\\.adoc" . adoc-mode))
+  (flyspell-mode t))
+
+;; accept completion from copilot and fallback to company
+(defun my-tab ()
+  (interactive)
+  (or (copilot-accept-completion)
+      (company-indent-or-complete-common nil)))
+
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         :map company-active-map
+         ("<tab>" . 'my-tab)
+         ("TAB" . 'my-tab)
+         :map company-mode-map
+         ("<tab>" . 'my-tab)
+         ("TAB" . 'my-tab)))
+
+(use-package! unfill
+  :defer t
+  :bind
+  ("M-q" . unfill-toggle)
+  ("A-q" . unfill-paragraph))

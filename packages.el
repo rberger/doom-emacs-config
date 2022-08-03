@@ -54,4 +54,7 @@
 (package! wakatime-mode)
 (package! graphql-mode)
 (package! edit-server) ;; for edit with emacs chrome extension
-;;
+(package! adoc-mode)
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+(package! unfill)
