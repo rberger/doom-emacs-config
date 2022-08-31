@@ -31,6 +31,9 @@
 ;; (setq doom-theme 'doom-one)
 ;;
 ;;
+(use-package doom-solarized-light :defer)
+(use-package doom-gruvbox :defer)
+
 (use-package circadian
   :config
   (setq calendar-latitude 37.2)
@@ -164,3 +167,13 @@
   :bind
   ("M-q" . unfill-toggle)
   ("A-q" . unfill-paragraph))
+
+;; Run this to fix too many open files error
+;; https://www.blogbyben.com/2022/05/gotcha-emacs-on-mac-os-too-many-files.html
+(defun file-notify-rm-all-watches ()
+  "Remove all existing file notification watches from Emacs."
+  (interactive)
+  (maphash
+   (lambda (key _value)
+     (file-notify-rm-watch key))
+   file-notify-descriptors))
