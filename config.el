@@ -168,6 +168,10 @@
   ("M-q" . unfill-toggle)
   ("A-q" . unfill-paragraph))
 
+(use-package! justl
+  :config
+  (map! :n "e" 'justl-exec-recipe))
+
 ;; Run this to fix too many open files error
 ;; https://www.blogbyben.com/2022/05/gotcha-emacs-on-mac-os-too-many-files.html
 (defun file-notify-rm-all-watches ()
