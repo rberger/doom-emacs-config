@@ -183,3 +183,5 @@
    (lambda (key _value)
      (file-notify-rm-watch key))
    file-notify-descriptors))
+
+(use-package earthfile-mode)
