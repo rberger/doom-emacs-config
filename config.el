@@ -84,7 +84,9 @@
 
 (use-package! wakatime-mode
   :config
-  (setq wakatime-cli-path "/opt/homebrew/bin/wakatime-cli")
+  (if (eq system-type 'darwin)
+      (setq wakatime-cli-path "/opt/homebrew/bin/wakatime-cli")
+    (setq wakatime-cli-path "~/.local/bin/wakatime"))
   (setq wakatime-api-key "c1c2b86b-993f-43a9-b7ae-7a742cc425d7")
   :hook (after-init . global-wakatime-mode))
 
@@ -155,14 +157,19 @@
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
-  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
-         ("C-<tab>" . 'copilot-accept-completion-by-word)
-         :map company-active-map
-         ("<tab>" . 'my-tab)
-         ("TAB" . 'my-tab)
-         :map company-mode-map
-         ("<tab>" . 'my-tab)
-         ("TAB" . 'my-tab)))
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+  ;; :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+  ;;        ("C-<tab>" . 'copilot-accept-completion-by-word)
+  ;;        :map company-active-map
+  ;;        ("<tab>" . 'my-tab)
+  ;;        ("TAB" . 'my-tab)
+  ;;        :map company-mode-map
+  ;;        ("<tab>" . 'my-tab)
+  ;;        ("TAB" . 'my-tab)))
 
 (use-package! unfill
   :defer t
