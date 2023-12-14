@@ -121,12 +121,12 @@
 (setq css-indent-offset 4)
 (setq +format-on-save-enabled-modes
       '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
-            sql-mode         ; sqlformat is currently broken
-            tex-mode         ; latexindent is broken
-            latex-mode
-            scss-mode
-            graphql-mode
-            web-mode))
+        sql-mode         ; sqlformat is currently broken
+        tex-mode         ; latexindent is broken
+        latex-mode
+        scss-mode
+        graphql-mode
+        web-mode))
 ;; Use format-all not lsp for formatting python
 (setq-hook! 'python-mode-hook +format-with-lsp nil)
 
@@ -137,11 +137,11 @@
 ;; https://github.com/stsquad/emacs_chrome
 (use-package! edit-server)
 (after! edit-server
-    (edit-server-start))
+  (edit-server-start))
 
 ;; In chrome mode, save the contents of the text when exiting.
 (add-hook 'edit-server-done-hook
-    '(lambda () (kill-ring-save (point-min) (point-max))))
+          '(lambda () (kill-ring-save (point-min) (point-max))))
 
 ;; Asciidoc
 (add-hook! adoc-mode
@@ -162,14 +162,14 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
-  ;; :bind (("C-TAB" . 'copilot-accept-completion-by-word)
-  ;;        ("C-<tab>" . 'copilot-accept-completion-by-word)
-  ;;        :map company-active-map
-  ;;        ("<tab>" . 'my-tab)
-  ;;        ("TAB" . 'my-tab)
-  ;;        :map company-mode-map
-  ;;        ("<tab>" . 'my-tab)
-  ;;        ("TAB" . 'my-tab)))
+;; :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+;;        ("C-<tab>" . 'copilot-accept-completion-by-word)
+;;        :map company-active-map
+;;        ("<tab>" . 'my-tab)
+;;        ("TAB" . 'my-tab)
+;;        :map company-mode-map
+;;        ("<tab>" . 'my-tab)
+;;        ("TAB" . 'my-tab)))
 
 (use-package! unfill
   :defer t
@@ -192,3 +192,40 @@
    file-notify-descriptors))
 
 (use-package earthfile-mode)
+
+(use-package! atomic-chrome
+  :defer 3
+  :when (display-graphic-p)
+  :preface
+  (defun +my/atomic-chrome-server-running-p ()
+    (cond ((executable-find "lsof")
+           (zerop (call-process "lsof" nil nil nil "-i" ":64292")))
+          ((executable-find "netstat")  ; Windows
+           (zerop (call-process-shell-command "netstat -aon | grep 64292")))))
+  ;; :hook
+  ;; (atomic-chrome-edit-mode . +my/atomic-chrome-mode-setup)
+  ;; (atomic-chrome-edit-done . +my/window-focus-default-browser)
+  :config
+  (progn
+    (setq atomic-chrome-buffer-open-style 'full) ;; or frame, split
+    (setq atomic-chrome-url-major-mode-alist
+          '(("github\\.com"        . gfm-mode)
+            ("swagger"             . yaml-mode)
+            ("stackexchange\\.com" . gfm-mode)
+            ("stackoverflow\\.com" . gfm-mode)
+            ("discordapp\\.com"    . gfm-mode)
+            ("coderpad\\.io"       . c++-mode)
+            ;; jupyter notebook
+            ("localhost\\:8888"    . python-mode)
+            ("lintcode\\.com"      . python-mode)
+            ("leetcode\\.com"      . python-mode)))
+
+    (defun +my/atomic-chrome-mode-setup ()
+      (setq header-line-format
+            (substitute-command-keys
+             "Edit Chrome text area.  Finish \
+`\\[atomic-chrome-close-current-buffer]'.")))
+
+    (if (+my/atomic-chrome-server-running-p)
+        (message "Can't start atomic-chrome server, because port 64292 is already used")
+      (atomic-chrome-start-server))))
