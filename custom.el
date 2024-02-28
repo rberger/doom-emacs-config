@@ -6,6 +6,7 @@
  '(ansi-color-names-vector
     ["#191919" "#FF5E5E" "#468800" "#E9FDAC" "#8CDAFF" "#C586C0" "#85DDFF" "#d4d4d4"])
  '(blink-cursor-mode nil)
+ '(codeium/metadata/api_key "97ba1261-8984-4591-9e82-c9c1dc6b4148")
  '(column-number-mode t)
  '(custom-safe-themes
     '("7eea50883f10e5c6ad6f81e153c640b3a288cd8dc1d26e4696f7d40f754cc703" "835868dcd17131ba8b9619d14c67c127aa18b90a82438c8613586331129dda63" "23c806e34594a583ea5bbf5adf9a964afe4f28b4467d28777bcba0d35aa0872e" default))
