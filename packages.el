@@ -55,8 +55,8 @@
 (package! graphql-mode)
 (package! edit-server) ;; for edit with emacs chrome extension
 (package! adoc-mode)
-;; (package! copilot
-;;   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 (package! unfill)
 (package! justl)
 (package! just-mode)
@@ -64,5 +64,5 @@
 (package! with-editor :pin "391e76a256aeec6b9e4cbd733088f30c677d965b")
 (package! earthfile-mode)
 (package! atomic-chrome)
-(package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
+;; (package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
 (package! tree-sitter-langs)
